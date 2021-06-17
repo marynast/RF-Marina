@@ -1,5 +1,5 @@
 *** Settings ***
-Library  /Users/marina/Python/development/robot-scripts/RF-Marina/main.py
+Library  main.py
 
 
 *** Variables ***

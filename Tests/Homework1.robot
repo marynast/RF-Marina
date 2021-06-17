@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation   Homework June 11
-Resource    /Users/marina/Python/development/robot-scripts/RF-Marina/Resources/Keywords.robot
+Resource    ../Resources/Keywords.robot
 
 *** Variables ***
 ${NUMBER1} =  2
