@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation   Homework June 11
-Resource    ../Resources/Keywords.robot
+Resource    ../Resources/HomeworkKeywords.robot
 
 *** Variables ***
 ${NUMBER1} =  2
