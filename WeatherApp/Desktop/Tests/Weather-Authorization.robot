@@ -1,8 +1,6 @@
 *** Settings ***
 Documentation  A test suite to verify the login with valid and invalid credentials.
-Resource  ../Resources/General.robot
-Resource  ../Resources/PageObject/MainPage.robot
-Resource  ../Resources/PageObject/SignInPage.robot
+Resource  ../Desktop_Imports.robot
 Suite Setup  General.Begin Web Test
 Suite Teardown  General.End Web Test
 
@@ -16,31 +14,33 @@ Login with valid and invalid credentials
     [Setup]  Go to Main Page
     [Teardown]  Close Browser
     [Template]  Login with valid and invalid credentials
-    ${Invalid}               ${Valid_Password}      ${InvalidCredentials_AlertText}
-    ${Valid_Username}        ${Invalid}             ${InvalidCredentials_AlertText}
-    ${Invalid}               ${Invalid}             ${InvalidCredentials_AlertText}
-    ${EMPTY}                 ${Valid_Password}      ${InvalidCredentials_AlertText}
-    ${Valid_Username}        ${EMPTY}               ${InvalidCredentials_AlertText}
-    ${EMPTY}                 ${EMPTY}               ${InvalidCredentials_AlertText}
-    ${Valid_Username}        ${Valid_Password}      ${ValidCredentials_AlertText}
+    ${Invalid}               ${Valid_Password}      ${InvalidCredentials_AlertText}    ${FailedLogin}
+    ${Valid_Username}        ${Invalid}             ${InvalidCredentials_AlertText}    ${FailedLogin}
+    ${Invalid}               ${Invalid}             ${InvalidCredentials_AlertText}    ${FailedLogin}
+    ${EMPTY}                 ${Valid_Password}      ${InvalidCredentials_AlertText}    ${FailedLogin}
+    ${Valid_Username}        ${EMPTY}               ${InvalidCredentials_AlertText}    ${FailedLogin}
+    ${EMPTY}                 ${EMPTY}               ${InvalidCredentials_AlertText}    ${FailedLogin}
+    ${Valid_Username}        ${Valid_Password}      ${ValidCredentials_AlertText}      ${SuccessfulLogin}
 
 User logins to the app after a failed login
     [Documentation]  This test case verifies successful login with valid credentials after a failed login with invalid
     ...              credentials
-    [Setup]  Run Keywords
-                            General.Begin Web Test
-                            General.Go to Sign In Page
-    SignInPage.Input Username and Password and Click "Submit" Button    ${Invalid}    ${Invalid}
-    SignInPage.Verify The Login State    ${InvalidCredentials_AlertText}
-    SignInPage.Input Username and Password and Click "Submit" Button   ${Valid_Username}    ${Valid_Password}
-    SignInPage.Verify The Login State    ${ValidCredentials_AlertText}
+    [Setup]    Run Keywords     General.Begin Web Test
+    ...        AND              LoginStep.Open "Sign In" Page
+    LoginStep.Input Username and Password and Click "Submit" Button    ${Invalid}    ${Invalid}
+    LoginStep.Alert Text Is Displayed    ${InvalidCredentials_AlertText}
+    LoginStep.Verify The Login Status    ${FailedLogin}
+    LoginStep.Input Username and Password and Click "Submit" Button   ${Valid_Username}    ${Valid_Password}
+    LoginStep.Alert Text Is Displayed    ${ValidCredentials_AlertText}
+    LoginStep.Verify The Login Status    ${SuccessfulLogin}
 
 
 *** Keywords ***
 Login With Valid And Invalid Credentials
     [Documentation]  Verifies login with valid and invalid credentials
-    [Arguments]  ${Username}   ${Password}   ${AlertText}
-    MainPage.Click "Sign In" Button
-    SignInPage.Input Username and Password and Click "Submit" Button    ${Username}    ${Password}
-    SignInPage.Verify The Login State  ${AlertText}
+    [Arguments]  ${Username}   ${Password}   ${AlertText}   ${LoginStatus}
+    LoginStep.Click "Sign In" Button In Top Navigation Menu
+    LoginStep.Input Username and Password and Click "Submit" Button    ${Username}    ${Password}
+    LoginStep.Alert Text Is Displayed    ${AlertText}
+    LoginStep.Verify The Login Status    ${LoginStatus}
 
