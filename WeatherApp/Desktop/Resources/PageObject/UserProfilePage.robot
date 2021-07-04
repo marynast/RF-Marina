@@ -3,7 +3,7 @@
 Library    SeleniumLibrary
 
 *** Variables ***
-${MyProfile_URL}                                    https://home.openweathermap.org/home
+${MyProfile_URL}                                    ${HomePage_URL}home
 ${MyProfile_SaveButton_Locator}                     //input[@data-disable-with='Create Profile form']
 ${MyProfile_UsernameInput_Locator}                  //input[@id='profile_form_username']
 ${MyProfile_ChangesSavedAlert_Locator}              //div[@class='panel-body']
@@ -24,7 +24,8 @@ Click "Save" button At User Profile Page
 
 Verify Alert Text After Profile Update
     [Documentation]  Verify Alert about success appears
-    [Arguments]  ${MyProfile_ProfileUpdatedSuccessAlert_Text}
+    [Arguments]  ${profile_updated_alert_text}
+
     Wait Until Element Is Visible    ${MyProfile_ChangesSavedAlert_Locator}
-    Element Text Should Be    ${MyProfile_ProfileUpdatedSuccessAlert_Locator}  ${MyProfile_ProfileUpdatedSuccessAlert_Text}
+    Element Text Should Be    ${MyProfile_ProfileUpdatedSuccessAlert_Locator}  ${profile_updated_alert_text}
 

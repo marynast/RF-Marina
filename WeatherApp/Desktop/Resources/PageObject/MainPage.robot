@@ -1,5 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
+Resource   WeatherApp/Desktop/Desktop_Imports.robot
 
 *** Variables ***
 ${URL}  https://openweathermap.org/

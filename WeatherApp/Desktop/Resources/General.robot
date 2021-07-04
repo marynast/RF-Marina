@@ -3,6 +3,7 @@ Library  SeleniumLibrary
 Resource  ../Desktop_Imports.robot
 
 *** Variables ***
+${URL}                           https://openweathermap.org/
 ${Valid_Username}                mstasev+test@gmail.com
 ${Valid_Password}                Qwerty123
 ${InvalidCredentials_AlertText}  Invalid Email or password.

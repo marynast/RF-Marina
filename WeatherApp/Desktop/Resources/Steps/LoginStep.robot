@@ -1,7 +1,5 @@
 *** Settings ***
-Library    SeleniumLibrary
-Resource   ../../../Desktop_Imports.robot
-
+Resource  __init__.robot
 *** Variables ***
 
 *** Keywords ***
@@ -15,26 +13,27 @@ Click "Sign In" Button In Top Navigation Menu
 
 Input Username and Password and Click "Submit" Button
     [Documentation]  User is at Sign In page and inputs Username, Password and clicks "Submit" button
-    [Arguments]    ${Username}    ${Password}
-    SignInPage.Input Username    ${Username}
-    SignInPage.Input Password    ${Password}
+    [Arguments]    ${username}    ${password}
+    SignInPage.Input Username    ${username}
+    SignInPage.Input Password    ${password}
     SignInPage.Click "Submit" Button
 
 Alert Text Is Displayed
     [Documentation]  Check that corresponding alert text is displayed
-    [Arguments]    ${AlertText}
-    SignInPage.Verify Alert Text    ${AlertText}
+    [Arguments]    ${alert_text}
+    SignInPage.Verify Alert is displayed
+    SignInPage.Verify Alert Text    ${alert_text}
 
 Verify The Login Status
     [Documentation]  Check whether the user is logged in or logged out
-    [Arguments]    ${LoginStatus}
-    SignInPage.Verify The Login Status    ${LoginStatus}
+    [Arguments]    ${login}
+    SignInPage.Verify The Login Status   ${login}
 
-User Is Logged In
+Login With Valid Crdentials
     [Documentation]  User is logged in successfully
-    [Arguments]    ${Username}    ${Password}    ${AlertText}
+    [Arguments]    ${username}    ${password}    ${alert_text}    ${login}
     LoginStep.Open "Sign In" Page
     LoginStep.Input Username and Password and Click "Submit" Button    ${Valid_Username}    ${Valid_Password}
     LoginStep.Alert Text Is Displayed    ${ValidCredentials_AlertText}
-    LoginStep.Verify The Login Status    ${SuccessfulLogin}
+    LoginStep.Verify The Login Status   ${login}
 
