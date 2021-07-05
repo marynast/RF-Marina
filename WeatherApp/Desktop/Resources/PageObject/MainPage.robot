@@ -3,7 +3,6 @@ Library    SeleniumLibrary
 Resource   WeatherApp/Desktop/Desktop_Imports.robot
 
 *** Variables ***
-${URL}  https://openweathermap.org/
 ${MainPage_SignInButton_Locator}  //li[@class='user-li']/a
 ${MainPage_Loader_Locator}  //div[@class='owm-loader-container']
 

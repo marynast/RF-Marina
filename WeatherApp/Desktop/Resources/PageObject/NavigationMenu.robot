@@ -33,8 +33,6 @@ Open User Dropdown List In Navigation Menu
         Wait Until Element Is Visible    ${NavigationMenu_Username_Locator}
         Click Element    ${NavigationMenu_Username_Locator}
         Wait Until Element Is Visible    ${NavigationMenu_UserDropdown_Locator}
-    ELSE
-         Skip
     END
 
 

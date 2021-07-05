@@ -13,9 +13,9 @@ ${MyProfile_ProfileUpdatedSuccessAlert_Text}        Profile was updated successf
 *** Keywords ***
 Input User Name At User Profile Page
     [Documentation]  User is at Profile settings page and inputs User name
-    [Arguments]  ${NewUsername}
+    [Arguments]  ${username}
     Wait Until Element Is Enabled  ${MyProfile_UsernameInput_Locator}
-    Input Text    ${MyProfile_UsernameInput_Locator}   ${NewUsername}
+    Input Text    ${MyProfile_UsernameInput_Locator}   ${username}
 
 Click "Save" button At User Profile Page
     [Documentation]  User is at Profile Settings page and clicks "Save" button
