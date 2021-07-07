@@ -9,3 +9,6 @@ Resource  ../Desktop/Resources/General.robot
 Resource  ../Desktop/Resources/Steps/LoginStep.robot
 Resource  ../Desktop/Resources/Steps/UserSettingsStep.robot
 Resource  ../Desktop/Resources/PageObject/Resource.robot
+Resource  ../Desktop/Resources/API-Keywords.robot
+Library  RequestsLibrary
+Library  JSONLibrary

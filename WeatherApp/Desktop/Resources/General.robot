@@ -21,3 +21,5 @@ Begin Web Test
 End Web Test
     Close Browser
 
+Create New Session
+    Create Session    openweather    ${Base_API_URL}
