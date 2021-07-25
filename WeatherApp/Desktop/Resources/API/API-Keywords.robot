@@ -44,6 +44,8 @@ Get Current Weather By City ID Via API
     ...                                   json_path=${CityNameJsonPath}
     Set Test Variable    ${object_value}
 
+
+
 Get Current Weather By City Name And Unit Of Measurement
     [Documentation]  Keyword to get the current weather by city name and unit of temperature
     [Arguments]  ${city_name}  ${temperature_unit}  ${api_key}
@@ -52,6 +54,7 @@ Get Current Weather By City Name And Unit Of Measurement
     ${object_value}=  Get Object Value   json=${response.json()}
     ...                                       json_path=${TemperatureJsonPath}
     Set Test Variable    ${object_value}
+
 
 Verify The Unit Of Measurement
     [Documentation]  Keyword to verify the temperature is returned in the expected unit
@@ -69,6 +72,7 @@ Verify Response Value Is As Expected
     [Arguments]   ${request_value}
     Should Be Equal As Strings    ${object_value}  ${request_value}
 
+
 Get Object Value
     [Documentation]  Keyword to get object from json by json path name
     [Arguments]  ${json}  ${json_path}
@@ -77,7 +81,7 @@ Get Object Value
 
 Verify The City Name In Response
     [Documentation]  Keyword to verify that the city in response is as expected
-    [Arguments]     ${request_value}
+    [Arguments]   ${request_value}
     Verify Response Value Is As Expected    ${request_value}
 
 Verify The Coordinates In Response

@@ -17,14 +17,14 @@ Get current weather by city name, coordinates and city ID
     [Documentation]  API test to get the current weather by city name, coordinates or City Id and verify the response
     ...              corresponds the data in the request
     Log    Step 1: Send Get Current Weather By City Name Via API
-    ApiStep.Send Get Current Weather By City Name Via API  ${CityName}  ${APIKey}  ${Lon}  ${Lat}
-    ApiStep.Longitude And Latitude Returned For The Given City  ${Lon}  ${Lat}
+    Api-Keywords.Get Current Weather By City Name Via API  ${CityName}  ${APIKey}  ${Lon}  ${Lat}
+    Api-Keywords.Verify The Coordinates In Response  ${Lon}  ${Lat}
     Log    Step 2: Send Get Current Weather By Coordinates Via API
-    ApiStep.Send Get Current Weather By Coordinates Via API  ${Lat}  ${Lon}  ${APIKey}
-    ApiStep.The Results Are Returned For The Given City  ${CityName}
+    Api-Keywords.Get Current Weather By Coordinates Via API  ${Lat}  ${Lon}  ${APIKey}
+    API-Keywords.Verify The City Name In Response  ${CityName}
     Log    Step 3: Send Get Current Weather By City ID Via API
-    ApiStep.Send Get Current Weather By City ID Via API  ${CityId}  ${APIKey}
-    ApiStep.The Results Are Returned For The Given City  ${CityName}
+    API-Keywords.Get Current Weather By City ID Via API  ${CityId}  ${APIKey}
+    API-Keywords.Verify The City Name In Response  ${CityName}
 
 
 Get current weather by city name and verify the unit of temperature
@@ -43,5 +43,5 @@ Get current weather by city name and verify the unit of temperature
     ...              the temperature is returned in the expected unit
     [Arguments]  ${city_name}  ${temperature_unit}  ${api_key}
     Log    Step 1: Send Get Current Weather By City Name And Unit Of Measurement
-    ApiStep.Send Get Current Weather By City Name And Unit Of Measurement  ${city_name}  ${temperature_unit}  ${api_key}
-    ApiStep.Temperature Is Returned In Expected Unit Of Temperature  ${temperature_unit}
+    API-Keywords.Get Current Weather By City Name And Unit Of Measurement  ${city_name}  ${temperature_unit}  ${api_key}
+    API-Keywords.Verify The Unit Of Measurement  ${temperature_unit}
