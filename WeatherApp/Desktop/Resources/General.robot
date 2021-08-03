@@ -10,6 +10,7 @@ ${Valid_Password}                Qwerty123
 ${InvalidCredentials_AlertText}  Invalid Email or password.
 ${ValidCredentials_AlertText}    Signed in successfully.
 ${FailedLogin}=  Element should be visible
+${APIKey}                        68320938aa1059333e2a94e89bf98b5e
 
 
 *** Keywords ***
