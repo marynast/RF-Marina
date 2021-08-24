@@ -16,7 +16,7 @@ Get current weather by city name, coordinates and city ID
     [Documentation]  API test to get the current weather by city name, coordinates or City Id and verify the response
     ...              corresponds the data in the request
     Log    Step 1: Send Get Current Weather By City Name Via API
-    API-Keywords.Get Current Weather By City Name Via API  ${CityName}  ${APIKey}
+    API-Keywords.Get Current Weather By City Name Via API  ${CityName}  ${Standard}  ${apiKey}
     API-Keywords.Verify The Longitude And Latitude Are Correct  ${Lon}  ${Lat}
     Log    Step 2: Send Get Current Weather By Coordinates Via API
     API-Keywords.Get Current Weather By Coordinates Via API  ${Lat}  ${Lon}  ${APIKey}
@@ -42,5 +42,5 @@ Get current weather by city name and verify the unit of temperature
     ...              the temperature is returned in the expected unit
     [Arguments]  ${city_name}  ${temperature_unit}  ${api_key}
     Log    Step 1: Send Get Current Weather By City Name And Unit Of Measurement
-    API-Keywords.Get Current Weather By City Name And Unit Of Measurement  ${city_name}  ${temperature_unit}  ${api_key}
+    API-Keywords.Get Current Weather By City Name Via API    ${city_name}  ${temperature_unit}  ${api_key}
     API-Keywords.Verify The Unit Of Measurement  ${temperature_unit}

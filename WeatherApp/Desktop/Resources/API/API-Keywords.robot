@@ -11,11 +11,13 @@ ${TemperatureJsonPath}  $.main.temp
 *** Keywords ***
 Get Current Weather By City Name Via API
     [Documentation]  Keyword to get the current weather by city name via API and verify that the coordinates are as expected
-    [Arguments]   ${city_name}  ${api_key}
+    [Arguments]   ${city_name}  ${temperature_unit}  ${api_key}
     &{params}=  Create Dictionary    q=${city_name}
+    ...                              units=${temperature_unit}
     ...                              appid=${api_key}
     ${response}=  Requests.Send Weather GET    params=${params}
     [Return]  ${response.json()}
+
 
 Get Current Weather By Coordinates Via API
     [Documentation]  Keyword to get the current weather by coordinates via API and verify that the city name is as expected
@@ -42,7 +44,7 @@ Get Object Value
 
 Verify The City Name Returned By Coordinates Is Correct
     [Documentation]  Keyword to verify that the city name in response is as expected
-    [Arguments]  ${request_value}
+    [Arguments]  ${request_value}  ${latitude}  ${longitude}  ${api_key}
     ${response_json}=  Get Current Weather By Coordinates Via API    ${latitude}    ${longitude}    ${api_key}
     ${object_value}=  Get Object Value    json=${response_json}
     ...                                   json_path=${CityNameJsonPath}
@@ -50,25 +52,17 @@ Verify The City Name Returned By Coordinates Is Correct
 
 Verify The City Name Returned By City ID Is Correct
     [Documentation]  Keyword to verify that the city name in response is as expected
-    [Arguments]   ${request_value}
-    ${response_json}=  Get Current Weather By City ID Via API    ${city_id}    ${api_key}
+    [Arguments]   ${request_value}  ${city_id}  ${api_key}
+    ${response_json}=  Get Current Weather By City ID Via API  ${city_id}  ${api_key}
     ${object_value}=  Get Object Value    json=${response_json}
     ...                                   json_path=${CityNameJsonPath}
     Should Be Equal As Strings    ${object_value}    ${request_value}
 
-Get Current Weather By City Name And Unit Of Measurement
-    [Documentation]  Keyword to get the current weather by city name and unit of temperature
-    [Arguments]  ${city_name}  ${temperature_unit}  ${api_key}
-    &{params}=     Create Dictionary    q=${city_name}
-    ...                                 units=${temperature_unit}
-    ...                                 appid=${api_key}
-    ${response}=  Requests.Send Weather GET   params=${params}
-    [Return]  ${response.json()}
 
 Verify The Unit Of Measurement
     [Documentation]  Keyword to verify the temperature is returned in the expected unit
-    [Arguments]  ${temperature_unit}
-    ${response_json}=  Get Current Weather By City Name And Unit Of Measurement    ${city_name}    ${temperature_unit}    ${api_key}
+    [Arguments]  ${temperature_unit}  ${city_name}  ${temperature_unit}  ${api_key}
+    ${response_json}=  Get Current Weather By City Name Via API  ${city_name}  ${temperature_unit}  ${api_key}
     ${object_value}=  Get Object Value   json=${response_json}
     ...                                  json_path=${TemperatureJsonPath}
     IF    '${temperature_unit}' == '${Metric}'
@@ -81,8 +75,8 @@ Verify The Unit Of Measurement
 
 Verify The Longitude And Latitude Are Correct
     [Documentation]  Keyword to verify that the longitude and latitude in response refer to the city from request
-    [Arguments]  ${longitude}    ${latitude}
-    ${response_json}=  Get Current Weather By City Name Via API    ${city_name}    ${api_key}
+    [Arguments]  ${longitude}  ${latitude}  ${city_name}  ${api_key}
+    ${response_json}=  Get Current Weather By City Name Via API  ${city_name}  ${api_key}
     ${lon_value}=   Get Object Value      json=${response_json}
     ...                                   json_path=${LongitudeJsonPath}
     ${lat_value}=   Get Object Value      json=${response_json}
@@ -90,21 +84,10 @@ Verify The Longitude And Latitude Are Correct
     Should Be Equal As Strings    ${lon_value}    ${longitude}
     Should Be Equal As Strings   ${lat_value}   ${latitude}
 
-Get Temperature Value From Response In Celsius
+Get Temperature Value From Response
      [Documentation]  Keyword to get the current temperature value from response and convert it from Kelvin to Celsius
-     ${response_json}=  Get Current Weather By City Name Via API    ${city_name}    ${api_key}
+     [Arguments]  ${city_name}  ${temperature_unit}  ${api_key}
+     ${response_json}=  Get Current Weather By City Name Via API    ${city_name}  ${temperature_unit}  ${api_key}
      ${temperature_value}=  Get Object Value   json=${response_json}
      ...                                       json_path=${TemperatureJsonPath}
-     ${temperature_value_celcius}=  Convert Kelvin To Celsius    ${temperature_value}
-     [Return]  ${temperature_value_celcius}
-
-Get Temperature Value From Response In Fahrenheit
-    [Documentation]  Keyword to get the current temperature value from response in Fahreheit and round it
-     ${response_json}=  Get Current Weather By City Name And Unit Of Measurement    city_name=Belmopan
-     ...                                                                            temperature_unit=imperial
-     ...                                                                            api_key=${APIKey}
-     ${temperature_value}=  Get Object Value   json=${response_json}
-     ...                                       json_path=${TemperatureJsonPath}
-     ${temperature_value}=  Round The Float    ${temperature_value}
      [Return]  ${temperature_value}
-

@@ -8,7 +8,6 @@ ${MainPage_Loader_Locator}  //div[@class='owm-loader-container']
 ${MainPage_SearchCityInput_Locator}  //input[@placeholder='Search city']
 ${MainPage_SearchCity_Button}  //button[@class='button-round dark']
 ${MainPage_SearchDropdownMenu_Locator}  //ul[@class='search-dropdown-menu']
-${MainPage_DropdownCityOption_Locator}  //span[contains(text(),'${city_name}')]
 ${MainPage_CurrentTemperature_Locator}  //div[@class='current-temp']
 ${MainPage_CityName_Locator}  //div[@data-v-3e6e9f12]/h2
 ${MainPage_SwitcherToImperial_Locator}  //div[@class='switch-container']/div[contains(text(),'Imperial: °F, mph')]
@@ -32,12 +31,18 @@ Click "Search" button
     Wait Until Element Is Enabled    ${MainPage_SearchCity_Button}
     Click Button    ${MainPage_SearchCity_Button}
 
+Get Dropdown City Option Locator
+    [Documentation]
+    [Arguments]  ${city_name}
+    [Return]  //span[contains(text(),'${city_name}')]
+
 Click City Name From Search Dropdown
     [Documentation]  Click the city name in dropdown list that is displayed after "Search" button is clicked
     [Arguments]  ${city_name}
     Wait Until Element Is Visible    ${MainPage_SearchDropdownMenu_Locator}
-    Element Should Contain    ${MainPage_DropdownCityOption_Locator}    ${city_name}
-    Click Element    ${MainPage_DropdownCityOption_Locator}
+    ${dropdown_city_option_locator}=  Get Dropdown City Option Locator    ${city_name}
+    Element Should Contain    ${dropdown_city_option_locator}    ${city_name}
+    Click Element    ${dropdown_city_option_locator}
 
 Get Current Temperature In Web
     [Documentation]  Get the value of the current temperature on the main page
@@ -45,7 +50,7 @@ Get Current Temperature In Web
     Wait Until Element Contains    ${MainPage_CityName_Locator}  ${city_name}
     Wait Until Element Is Visible    ${MainPage_CurrentTemperature_Locator}
     ${current_temperature_web}=  Get Text    ${MainPage_CurrentTemperature_Locator}
-    Return From Keyword  ${current_temperature_web.strip(${measurement_unit_code})}
+    [Return]  ${current_temperature_web.strip(${measurement_unit_code})}
 
 Click "Metric" Button
     [Documentation]  Click "Metric" button on the main page to change the unit of temperature to Metric
