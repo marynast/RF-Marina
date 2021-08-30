@@ -1,6 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
-Resource   WeatherApp/Desktop/Desktop_Imports.robot
+Resource   ../../Desktop_Imports.robot
 
 *** Variables ***
 ${MainPage_SignInButton_Locator}  //li[@class='user-li']/a
@@ -12,6 +12,7 @@ ${MainPage_CurrentTemperature_Locator}  //div[@class='current-temp']
 ${MainPage_CityName_Locator}  //div[@data-v-3e6e9f12]/h2
 ${MainPage_SwitcherToImperial_Locator}  //div[@class='switch-container']/div[contains(text(),'Imperial: °F, mph')]
 ${MainPage_SwitcherToMetric_Locator}  //div[@class='switch-container']/div[contains(text(),'Metric: °C, m/s')]
+
 
 *** Keywords ***
 Go to Main Page
@@ -63,4 +64,3 @@ Click "Imperial" Button
     Wait Until Element Is Visible    ${MainPage_SwitcherToImperial_Locator}
     Click Element    ${MainPage_SwitcherToImperial_Locator}
     Wait Until Element Is Not Visible    ${MainPage_Loader_Locator}
-

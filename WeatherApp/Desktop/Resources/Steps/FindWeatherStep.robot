@@ -13,7 +13,6 @@ Get Temperature By City Name Via API
 Find Weather By City Name In Web
     [Documentation]  In Web input the city name in the search field, click "Search" button and select the city name
     [Arguments]  ${city_name}
-    MainPage.Go to Main Page
     MainPage.Click "Metric" Button
     MainPage.Input City Name In Search City Field    ${city_name}
     MainPage.Click "Search" button
@@ -21,7 +20,6 @@ Find Weather By City Name In Web
 
 Change Unit Of Temperature To Imperial
     [Documentation]  Select "Imperial" unit of temperature in the main page
-    MainPage.Go to Main Page
     MainPage.Click "Imperial" Button
 
 Verify Temparature Returned Via API Equals Temperature In Web (Celsius)
